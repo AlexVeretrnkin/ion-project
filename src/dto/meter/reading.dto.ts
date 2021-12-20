@@ -2,8 +2,11 @@ import { IsNotEmpty } from 'class-validator';
 
 export class ReadingDto {
   @IsNotEmpty()
-  date: Date;
+  public meterId: string;
 
   @IsNotEmpty()
-  value: number;
+  public date: Date;
+
+  @IsNotEmpty()
+  public value: number;
 }

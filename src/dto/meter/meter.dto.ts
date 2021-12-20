@@ -14,4 +14,6 @@ export class MeterDto {
 
   @IsNotEmpty()
   public position: string;
+
+  public id?: string;
 }
