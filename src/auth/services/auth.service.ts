@@ -1,10 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsersService } from '../../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { BaseUserModel } from '@models/user/base-user.model';
 import { JWTPayload } from '@models/jwt/JWTPayload';
 import { JwtResponse } from '@models/jwt/jwt-response';
-import { RegisterUserDto } from '@dto/user/register-userDto';
+import { RegisterUserDto } from '@dto/user/register-user.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -22,12 +27,19 @@ export class AuthService {
       username,
     );
 
-    if (await bcrypt.compare(pass, user.password)) {
+    if (user && (await bcrypt.compare(pass, user.password))) {
       const { password, ...result } = user;
+
       return result;
     }
 
-    return null;
+    throw new HttpException(
+      {
+        error: 'Wrong username or password',
+        statusCode: HttpStatus.BAD_REQUEST,
+      },
+      HttpStatus.BAD_REQUEST,
+    );
   }
 
   public async login(user: BaseUserModel): Promise<JwtResponse> {
