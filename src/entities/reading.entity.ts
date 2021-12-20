@@ -1,12 +1,11 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { Meter } from '@entities/meter.entity';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Reading {
+  @PrimaryGeneratedColumn('increment')
+  public id: string;
+
   @Column()
-  @ManyToOne((type) => Meter, (meter) => meter.id, {
-    cascade: true,
-  })
   public meterId: string;
 
   @Column({ type: 'timestamptz' })
