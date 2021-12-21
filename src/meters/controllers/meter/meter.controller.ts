@@ -17,6 +17,8 @@ import { ReadingService } from '../../services/reading/reading.service';
 import { ReadingDto } from '@dto/meter/reading.dto';
 import { ReadingQueryModel } from "@models/query/reading-query.model";
 import { MeterQueryModel } from "@models/query/meter-query.model";
+import { Public } from 'src/auth/decorators/public.decorator';
+import { ReadingUploadModel } from '@models/query/reading-upload.model';
 
 @Controller('meter')
 export class MeterController {
@@ -66,4 +68,12 @@ export class MeterController {
   public async deleteReading(@Param() params) {
     return this.readingService.deleteReading(params.id);
   }
+
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('readings')
+  public async uploadReadings(@Body() data: ReadingUploadModel) {
+    return this.readingService.uploadReadings(data);
+  }
+
 }
