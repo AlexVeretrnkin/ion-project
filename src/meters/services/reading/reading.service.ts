@@ -26,20 +26,23 @@ export class ReadingService {
   }
 
   public async uploadReadings(data: ReadingUploadModel): Promise<InsertResult> {
-    let meter = await this.meterRepository.findOne({where: {key: data.meterKey}})
+    let meter = await this.meterRepository.findOne({
+      where: { key: data.meterKey },
+    });
     if (meter == null) {
-      console.log("Meter is", meter, data)
-      throw new NotFoundException()
+      console.log('Meter is', meter, data);
+      throw new NotFoundException();
     }
-    let meterId = meter.id
+    let meterId = meter.id;
     return await this.readingRepository.insert(
-      data.readings.map(r => ({meterId: meterId, date: r.date, value: r.value} as ReadingDto))
-      )
+      data.readings.map(
+        (r) =>
+          ({ meterId: meterId, date: r.date, value: r.value } as ReadingDto),
+      ),
+    );
   }
 
-  public getReceivedReadingCount(from: Date, to: Date) {
-      
-  }
+  public getReceivedReadingCount(from: Date, to: Date) {}
 
   public async getAllReadingsByMeter(
     query: ReadingQueryModel,
@@ -50,6 +53,9 @@ export class ReadingService {
       where: {
         meterId,
         ...(!!from && !!to ? { date: Between(from, to) } : {}),
+      },
+      order: {
+        date: 'DESC',
       },
       take: offset,
       skip: page * offset,

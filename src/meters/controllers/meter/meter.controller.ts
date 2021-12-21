@@ -12,11 +12,10 @@ import {
 } from '@nestjs/common';
 import { MeterDto } from '@dto/meter/meter.dto';
 import { MeterService } from '../../services/meters/meter.service';
-import { PaginationQueryModel } from '@models/query/pagination-query.model';
 import { ReadingService } from '../../services/reading/reading.service';
 import { ReadingDto } from '@dto/meter/reading.dto';
-import { ReadingQueryModel } from "@models/query/reading-query.model";
-import { MeterQueryModel } from "@models/query/meter-query.model";
+import { ReadingQueryModel } from '@models/query/reading-query.model';
+import { MeterQueryModel } from '@models/query/meter-query.model';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { ReadingUploadModel } from '@models/query/reading-upload.model';
 
@@ -48,7 +47,7 @@ export class MeterController {
   @HttpCode(HttpStatus.OK)
   @Delete(':id')
   public async deleteMeter(@Param() params) {
-    return this.meterService.updateMeter(params.id);
+    return this.meterService.deleteMeter(params.id);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -81,5 +80,4 @@ export class MeterController {
   public async uploadReadings(@Body() data: ReadingUploadModel) {
     return this.readingService.uploadReadings(data);
   }
-
 }
