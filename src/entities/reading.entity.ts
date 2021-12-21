@@ -13,6 +13,6 @@ export class Reading {
   @Column({ type: 'timestamptz' })
   public date: Date;
 
-  @Column()
+  @Column("decimal", { precision: 5, scale: 3, nullable: false })
   public value: number;
 }

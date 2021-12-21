@@ -1,1 +1,1 @@
-select * from meter;
+select * from reading;
