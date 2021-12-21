@@ -26,6 +26,10 @@ export class MeterService {
     return this.meterRepository.delete({ id });
   }
 
+  public getMeterCount(): Promise<number> {
+    return this.meterRepository.count()
+  }
+
   public async getAllMeters(
     query: MeterQueryModel,
   ): Promise<PaginationModel<Meter>> {

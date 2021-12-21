@@ -52,6 +52,12 @@ export class MeterController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @Get('count')
+  public async getMeterCount() {
+    return this.meterService.getMeterCount();
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Post('reading')
   public async createReading(@Body() reading: ReadingDto) {
     return this.readingService.createReading(reading);
