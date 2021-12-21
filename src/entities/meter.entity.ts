@@ -16,7 +16,7 @@ export class Meter {
   })
   public id: string;
 
-  @Column()
+  @Column({unique: true})
   @Generated('uuid')
   public key: string;
 
