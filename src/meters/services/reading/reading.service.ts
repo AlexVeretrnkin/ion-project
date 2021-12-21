@@ -37,6 +37,10 @@ export class ReadingService {
       )
   }
 
+  public getReceivedReadingCount(from: Date, to: Date) {
+      
+  }
+
   public async getAllReadingsByMeter(
     query: ReadingQueryModel,
   ): Promise<PaginationModel<Reading>> {
