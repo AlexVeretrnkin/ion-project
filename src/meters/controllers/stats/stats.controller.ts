@@ -20,24 +20,31 @@ import {
   import { Public } from 'src/auth/decorators/public.decorator';
   import { ReadingUploadModel } from '@models/query/reading-upload.model';
 import { DateRangeQueryModel } from '@models/query/date-range-query.model';
+import { StatsService } from 'src/meters/services/stats/stats.service';
+import { MeterConsumptionQuery } from '@models/query/meter-consumption-query.model';
   
   @Controller('stats')
   export class StatsController {
     constructor(
-      private readonly meterService: MeterService,
-      private readonly readingService: ReadingService,
+      private readonly statsService: StatsService,
     ) {}
   
     @HttpCode(HttpStatus.OK)
     @Get('meterCount')
     public async getMeterCount() {
-      return this.meterService.getMeterCount();
+      return this.statsService.getMeterCount();
     }
 
-    /*@HttpCode(HttpStatus.OK)
+    @HttpCode(HttpStatus.OK)
     @Get('readingsReceived')
     public async getReceivedReadingsCount(@Query() query: DateRangeQueryModel) {
-        return this.readingService.getReceivedReadingCount();
-    }*/
+        return this.statsService.getReceivedReadingCount(query);
+    }
+
+    @HttpCode(HttpStatus.OK)
+    @Get('consumption')
+    public async getReceivegetConsumptionForType(@Query() query: MeterConsumptionQuery) {
+        return this.statsService.getConsumption(query);
+    }
   }
   
